@@ -1,0 +1,113 @@
+<div class="py-12 bg-gray-100 h-w-content">
+	<div class="flex mx-auto max-w-7xl">
+		<div [@fadeInAnimation]="{value:'',params:{d:'250ms'}}" class="flex-1 mr-2 overflow-hidden bg-white rounded-lg shadow">
+			<ng-container *ngIf="userService.user$ | async as user; else loading">
+				<div class="flex flex-wrap items-center justify-between">
+					<div class="px-6 py-5">
+						<h3 class="text-lg font-medium leading-6 text-gray-900">
+							Account Information
+						</h3>
+						<p class="max-w-2xl mt-1 text-sm text-gray-500">
+							Personal details and profile information.
+						</p>
+					</div>
+					<div class="flex-shrink-0 px-6 py-5">
+						<button (click)="callUpdateCurrentUser(user)" class="mr-4 " app-button label="Save" iconStyle="solid" icon="fa-save" iconPosition="right" design="primary" size="small" color="primary"></button>
+						<button (click)="router.navigate(['account'])" app-button label="Back" iconStyle="solid" icon="fa-reply" iconPosition="right" design="secondary" size="small" color="primary"></button>
+					</div>
+				</div>
+				<div class="px-6 py-5 border-t border-gray-200">
+					<dl class="grid grid-cols-2 gap-x-0 gap-y-8">
+						
+						<!-- <div class="col-span-1 pr-24">
+							<dt class="text-sm font-medium text-gray-500">
+								Full name
+							</dt>
+							<dd app-input [(inputModel)]="user.profile.name" class="mt-1 text-sm text-gray-900"></dd>
+						</div> -->
+
+						<div app-input label="Full name" [(inputModel)]="user.profile.name" class="col-span-1 pr-24">
+						</div>
+
+						<div app-input label="Email address" [(inputModel)]="user.email" class="col-span-1 pr-24">
+						</div>
+						
+						<!-- <div class="col-span-1">
+							<dt class="text-sm font-medium text-gray-500">
+								Bio
+							</dt>
+							<textarea [(ngModel)]="user.profile.bio" name="bio" rows="3" class="block w-full max-w-lg mt-1 text-sm text-gray-900 border border-gray-300 rounded-md shadow-sm focus:ring-yellow-400 focus:border-yellow-400"></textarea>
+						</div> -->
+
+						<div app-text-area label="Biography" [(inputModel)]="user.profile.bio" name="bio" class="col-span-1 pr-24"></div>
+						
+						<div class="col-span-1">
+							<dt class="text-sm font-medium text-gray-500">
+								Avatar image
+							</dt>
+							<div class="mt-3">
+								<div class="flex items-center">
+									<span app-avatar [name]="user.profile.name" [src]="user.profile.avatarUrl" class="grid w-12 h-12 mr-5 overflow-hidden bg-gray-100 rounded-full"></span>
+									<app-input-file (fileEvent)="uploadAvatar($event)" [supportedFileTypes]="avatarFileTypes" label="Change" name="avatar"></app-input-file>
+								</div>
+							</div>
+						</div>
+					</dl>
+				</div>
+			</ng-container>
+			<ng-template #loading>
+				<div class="flex flex-wrap items-center justify-between">
+					<div class="px-6 py-5">
+						<h3 class="text-lg font-medium leading-6 text-gray-900">
+							Account Information
+						</h3>
+						<p class="max-w-2xl mt-1 text-sm text-gray-500">
+							Personal details and profile information.
+						</p>
+					</div>
+					<div class="flex-shrink-0 px-6 py-5">
+						<button type="button" class="inline-flex items-center px-3 py-2 text-sm font-medium text-white btn-primary-colors">
+							Save
+							<i class="w-3 h-3 ml-2 fas fa-save"></i>
+						</button>
+						<button (click)="router.navigate(['account'])" type="button" class="inline-flex items-center px-3 py-2 ml-4 text-sm font-medium leading-4 btn-secondary-colors">
+							Back
+							<i class="w-3 h-3 ml-2 fas fa-reply"></i>
+						</button>
+					</div>
+				</div>
+				<div class="px-6 py-5 border-t border-gray-200">
+					<dl class="grid grid-cols-2 gap-x-0 gap-y-8">
+						
+						<div class="col-span-1 pr-24">
+							<dd class="block w-1/6 p-2 text-sm border border-white rounded-md appearance-none bg-gradient-to-r from-gray-100 to-gray-200"></dd>
+							<dd class="block w-full h-10 mt-1 text-sm border border-white rounded-md appearance-none bg-gradient-to-r from-gray-100 to-gray-200"></dd>
+						</div>
+						
+						<div class="col-span-1 pr-24">
+							<dd class="block w-1/5 p-2 text-sm border border-white rounded-md appearance-none bg-gradient-to-r from-gray-100 to-gray-200"></dd>
+							<dd class="block w-full h-10 mt-1 text-sm border border-white rounded-md appearance-none bg-gradient-to-r from-gray-100 to-gray-200"></dd>
+						</div>
+						
+						<div class="col-span-1">
+							<dd class="block w-1/6 p-2 text-sm border border-white rounded-md appearance-none bg-gradient-to-r from-gray-100 to-gray-200"></dd>
+							<dd class="block w-full h-20 max-w-lg mt-1 text-sm border border-white rounded-md appearance-none bg-gradient-to-r from-gray-100 to-gray-200"></dd>
+						</div>
+						
+						<div class="col-span-1">
+							<dd class="block w-1/6 p-2 text-sm border border-white rounded-md appearance-none bg-gradient-to-r from-gray-100 to-gray-200"></dd>
+							<div class="mt-3">
+								<div class="flex items-center">
+									<dd class="block w-12 h-12 pt-2.5 text-sm border border-white rounded-full appearance-none bg-gradient-to-r from-gray-100 to-gray-200"></dd>
+									<button type="button" class="px-3 py-2 ml-5 text-sm font-medium leading-4 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">
+										Change
+									</button>
+								</div>
+							</div>
+						</div>
+					</dl>
+				</div>
+			</ng-template>
+		</div>
+	</div>
+</div>

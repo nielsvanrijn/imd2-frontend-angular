@@ -1,0 +1,41 @@
+<div class="flex flex-col justify-center min-h-screen py-12 bg-gray-50 sm:px-6 lg:px-8">
+	<div class="sm:mx-auto sm:w-full sm:max-w-md">
+		<svg class="w-auto p-2 mx-auto text-yellow-400 rounded-md fill-current h-14" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+			<path d="M101.46 118a37.17 37.17 0 01.33-37.43c9.11-16 28-23.66 45.57-20.12.34-16.64 11.46-32 29-37.43a43.36 43.36 0 0138.82 6.08A41.63 41.63 0 01242.5 2c22.27-6.78 46.23 4.42 53.33 25.54a4.22 4.22 0 01.68 1.92A43.29 43.29 0 01335.65 23c17.53 5.43 28.67 20.79 29 37.43C382.2 57 401.09 64.6 410.2 80.6a37.88 37.88 0 01.33 37.43 42.7 42.7 0 0133.09 20.79c3.91 6.75 4.76 14 4.24 21.12H64.13c-.5-7.12.35-14.38 4.27-21.12 6.74-12.15 19.6-19.51 33.06-20.82z" opacity=".4"/>
+			<path d="M64 192h81.56l28 256h45.05l-21.56-256H315l-21.61 256h45l28-256H448l-43.91 292.73A32 32 0 01372.44 512H139.56a32 32 0 01-31.65-27.25z"/>
+		</svg>
+		<h2 class="mt-6 text-3xl font-extrabold text-center text-gray-900">
+			Sign in to your account
+		</h2>
+		<p class="mt-2 text-sm text-center text-gray-600 max-w">
+			Don't have an account yet?
+			<a href="/register" class="font-medium text-yellow-400 hover:text-yellow-500">
+			  	Sign up here
+			</a>
+		</p>
+	</div>
+  
+	<div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+		<div class="px-4 py-8 bg-white shadow sm:rounded-lg sm:px-10">
+			<form class="space-y-6" method="POST">
+
+				<div app-input label="Email address" [(inputModel)]="email" [type]="'email'" [required]="true" [errors]="auth.loginErrors.email"></div>
+
+				<div app-input label="Password" [(inputModel)]="password" [type]="'password'" [required]="true" [errors]="auth.loginErrors.password"></div>
+
+				<div class="flex items-center justify-between">
+					<div class="text-sm">
+						<a href="#" class="font-medium text-yellow-400 hover:text-yellow-500">
+							Forgot your password?
+						</a>
+					</div>
+				</div>
+
+				<div>
+					<!-- <button (click)="callLogin()" class="w-full" app-button label="Sign in" iconStyle="solid" icon="fa-plus" iconPosition="right" design="primary" size="medium" color="primary"></button> -->
+					<button (click)="callLogin()" class="w-full" app-button label="Sign in" design="primary" size="medium" color="primary"></button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,23 @@
+<ng-container *ngIf="group; else default">
+	<button type="button" (click)="fileinput.click()" class="relative inline-flex items-center px-1.5 py-1.5 -mr-px text-sm font-medium text-gray-500 bg-white border border-gray-300 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-primary-400 focus:border-primary-400 disabled:bg-gray-100 disabled:text-gray-400" [disabled]="disabled">
+		<span *ngIf="icon === ''; else iconTemplate">{{ label }}</span>
+		<ng-template #iconTemplate>
+			<fa-icon [icon]="iconAsIconProp"></fa-icon>
+		</ng-template>
+		<input #fileinput (change)="fileChangeEvent($event)" type="file" name="{{name}}" [required]="required" class="hidden">
+	</button>
+</ng-container>
+<ng-template #default>
+	<label (click)="fileinput.click()" for="{{name}}" class="block px-3 py-2 text-sm font-medium leading-4 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm cursor-pointer hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">
+		{{ label }}
+	</label>
+	<div class="relative mt-1 rounded-md shadow-sm" hidden>
+		<input #fileinput (change)="fileChangeEvent($event)" type="file" name="{{name}}" [required]="required" class="block w-full text-sm placeholder-gray-400 border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-yellow-400 focus:border-yellow-400">
+		<div *ngIf="error" class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+			<i class="w-5 h-5 text-red-400 fas fa-exclamation-circle"></i>
+		</div>
+	</div>
+	<ng-container *ngFor="let error of errors; index as errorIndex">
+		<p *ngIf="error !== ''" class="mt-1 ml-4 text-xs text-red-400">{{ error }}</p>
+	</ng-container>
+</ng-template>

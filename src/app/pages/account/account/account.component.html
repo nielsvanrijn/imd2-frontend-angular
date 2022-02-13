@@ -1,0 +1,98 @@
+<div class="py-12 bg-gray-100 h-w-content">
+	<ng-container *ngIf="userService.user$ | async as user">
+		<div class="flex mx-auto max-w-7xl">
+			
+			<div [@fadeInAnimation]="{value:'',params:{d:'250ms'}}" class="flex-1 mr-2 overflow-hidden bg-white rounded-lg shadow">
+				<div class="flex flex-wrap items-center justify-between">
+					<div class="px-6 py-5">
+						<h3 class="text-lg font-medium leading-6 text-gray-900">
+							Account Information
+						</h3>
+						<p class="max-w-2xl mt-1 text-sm text-gray-500">
+							Personal details and profile information.
+						</p>
+					</div>
+					<div class="flex-shrink-0 px-6 py-5">
+						<button routerLink="/account-edit" app-button label="Edit profile" iconStyle="solid" icon="fa-pen-to-square" iconPosition="right" design="secondary" size="small" color="primary"></button>
+					</div>
+				</div>
+				<div class="px-6 py-5 border-t border-gray-200">
+					<dl class="grid grid-cols-2 gap-x-4 gap-y-8">
+						<div class="col-span-1">
+							<dt class="text-sm font-medium text-gray-500">
+								Full name
+							</dt>
+							<dd class="mt-1 text-sm text-gray-900">
+								{{ user.profile.name }}
+							</dd>
+						</div>
+						<div class="col-span-1">
+							<dt class="text-sm font-medium text-gray-500">
+								Email address
+							</dt>
+							<dd class="mt-1 text-sm text-gray-900">
+								{{ user.email }}
+							</dd>
+						</div>
+						<div class="col-span-1">
+							<dt class="text-sm font-medium text-gray-500">
+								Bio
+							</dt>
+							<dd class="mt-1 text-sm text-gray-900">
+								{{ user.profile.bio ? user.profile.bio : '-' }}
+							</dd>
+						</div>
+						<div class="col-span-1">
+							<dt class="text-sm font-medium text-gray-500">
+								Active since
+							</dt>
+							<dd class="mt-1 text-sm text-gray-900">
+								{{ moment(user.createdAt).format('DD/MM/YYYY, HH:mm') }}
+								({{ moment(user.createdAt).fromNow() }})
+							</dd>
+						</div>
+					</dl>
+				</div>
+			</div>
+
+			<div [@fadeInAnimation]="{value:'',params:{d:'250ms'}}" class="ml-2 overflow-hidden bg-white rounded-lg shadow flex-5">
+				<div class="px-6 py-5">
+					<h3 class="text-lg font-medium leading-6 text-gray-900">
+						Profile Checklist
+					</h3>
+					<p class="max-w-2xl mt-1 text-sm text-gray-500">
+						Finish profile setup
+					</p>
+				</div>
+				<div class="px-4 py-5 border-t border-gray-200">
+					<nav class="flex justify-center" aria-label="Progress">
+						<ol class="space-y-6">
+							<li *ngFor="let step of steps; index as stepIndex;">
+								<span class="flex items-start">
+									<span class="relative flex items-center justify-center flex-shrink-0 w-5 h-5">
+										
+										<ng-container *ngIf="step.done; else second">
+											<ng-icon class="w-full text-xl text-yellow-400" name="hero-check-circle-solid"></ng-icon>
+										</ng-container>
+										<ng-template #second>
+											<ng-container *ngIf="stepIndex !== firstNotDoneIndex; else third">
+												<div class="w-2 h-2 bg-gray-300 rounded-full group-hover:bg-gray-400"></div>
+											</ng-container>
+										</ng-template>
+										<ng-template #third>
+											<span class="absolute w-4 h-4 bg-yellow-200 rounded-full"></span>
+											<span class="relative block w-2 h-2 bg-yellow-400 rounded-full"></span>
+										</ng-template>
+										
+									</span>
+									<span class="ml-3 text-sm font-medium text-gray-500">{{ step.name }}</span>
+								</span>
+							</li>
+						</ol>
+					</nav>
+				</div>
+			</div>
+			
+		</div>
+	</ng-container>
+</div>

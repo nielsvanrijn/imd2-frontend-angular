@@ -1,0 +1,13 @@
+<!-- class="flex justify-center w-full px-4 py-2 text-sm font-medium btn-primary-colors" -->
+<ng-container *ngIf="false; else template">
+	<!-- <ng-content></ng-content> -->
+</ng-container>
+<ng-template
+	#template
+	(click)="EE.emit($event);"
+	type="button"
+>
+	<i *ngIf="icon && iconPosition === 'left'" [ngClass]="class"></i>
+	<span>{{ label }}</span>
+	<i *ngIf="icon && iconPosition === 'right'" [ngClass]="class"></i>
+</ng-template>

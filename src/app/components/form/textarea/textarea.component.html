@@ -1,0 +1,19 @@
+<label *ngIf="label" for="{{name}}" class="block text-sm font-medium text-gray-500">
+	{{ label }}
+</label>
+<div class="relative mt-1 rounded-md shadow-sm">
+	<textarea [(ngModel)]="inputModel" (ngModelChange)="inputModelChange.emit(inputModel)" name="{{name}}" rows="{{rows}}" cols="{{cols}}" placeholder="{{placeholder}}" [required]="required" [disabled]="disabled" class="block w-full mt-1 text-sm placeholder-gray-400 border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-yellow-400 focus:border-yellow-400" [ngClass]="{'text-red-600 placeholder-red-300 border-red-300 focus:!ring-red-500 focus:!border-red-500 pr-10' : error}"></textarea>
+	<div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+		<i *ngIf="error" class="w-5 h-5 text-red-400 fas fa-exclamation-circle"></i>
+		<i *ngIf="!error && iconName" [ngClass]="'w-5 h-5 text-primary-500 fa' + iconStyle.substring(0,1) + ' fa-' + iconName"></i>
+		<ng-template #icon>
+			<i [class]="'fa-' + iconStyle + ' fa-' + icon"></i>
+		</ng-template>
+		<ng-template #icon2>
+			<i [class]="'fas fa-' + icon"></i>
+		</ng-template>
+	</div>
+</div>
+<ng-container *ngFor="let error of filterdErrors; index as errorIndex">
+	<p *ngIf="error" class="mt-1 text-xs text-red-400">{{ error }}</p>
+</ng-container>

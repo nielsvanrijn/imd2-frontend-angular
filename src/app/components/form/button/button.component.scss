@@ -1,0 +1,24 @@
+:host {
+	@apply transition duration-100 ease-out rounded-md text-sm font-medium hover:ease-in inline-flex justify-evenly items-center leading-5 outline-none;
+	@apply tiny:px-2 tiny:py-0 small:px-3 small:py-2 medium:px-4 medium:py-2 large:px-6 large:py-3;
+
+	@apply primary:text-white primary:bg-primary-400 primary:hover:cursor-pointer primary:hover:bg-primary-500 primary:focus:ring-2 primary:focus:ring-offset-2 primary:focus:ring-yellow-400;
+	@apply secondary:text-primary-400 secondary:leading-4 secondary:bg-white secondary:border secondary:border-gray-300 secondary:shadow-sm secondary:hover:bg-gray-50 secondary:focus:ring-2 secondary:focus:ring-offset-2 secondary:focus:ring-yellow-400;
+	@apply tertiary:text-primary-600 tertiary:bg-transparent tertiary:border tertiary:border-primary-600  tertiary:focus:bg-transparent tertiary:focus:ring-0 tertiary:focus:ring-offset-4 tertiary:focus:ring-offset-primary-200;
+
+	@apply primary:danger:text-white primary:danger:bg-danger-500 primary:danger:hover:bg-danger-600 primary:danger:active:bg-danger-500 primary:danger:focus:bg-danger-500 primary:danger:focus:ring-offset-danger-200;
+	@apply secondary:danger:text-danger-600 secondary:danger:bg-gray-100 secondary:danger:hover:bg-gray-200;
+	@apply tertiary:danger:text-danger-600 tertiary:danger:border-danger-600 tertiary:danger:focus:ring-offset-danger-200;
+
+	@apply primary:info:text-white primary:info:bg-info-500 primary:info:hover:bg-info-600 primary:info:active:bg-info-500 primary:info:focus:bg-info-500 primary:info:focus:ring-offset-info-200;
+	@apply secondary:info:text-info-600 secondary:info:bg-gray-100 secondary:info:hover:bg-gray-200;
+	@apply tertiary:info:text-info-600 tertiary:info:border-info-600 tertiary:info:focus:ring-offset-info-200;
+
+	@apply primary:warning:text-white primary:warning:bg-warning-500 primary:warning:hover:bg-warning-600 primary:warning:active:bg-warning-500 primary:warning:focus:bg-warning-500 primary:warning:focus:ring-offset-warning-200;
+	@apply secondary:warning:text-warning-600 secondary:warning:bg-gray-100 secondary:warning:hover:bg-gray-200;
+	@apply tertiary:warning:text-warning-600 tertiary:warning:border-warning-600 tertiary:warning:focus:ring-offset-warning-200;
+
+	@apply primary:success:text-white primary:success:bg-success-500 primary:success:hover:bg-success-600 primary:success:active:bg-success-500 primary:success:focus:bg-success-500 primary:success:focus:ring-offset-success-200;
+	@apply secondary:success:text-success-600 secondary:success:bg-gray-100 secondary:success:hover:bg-gray-200;
+	@apply tertiary:success:text-success-600 tertiary:success:border-success-600 tertiary:success:focus:ring-offset-success-200;
+}

@@ -1,0 +1,48 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+
+
+// Globals
+body {
+	@apply bg-gray-800;
+}
+
+.h-w-content {
+	min-height: calc(100vh - 70px);
+	width: calc(100vw - 80px);
+	margin-left: 80px;
+}
+
+// Grouped utilities
+.btn-primary-colors {
+	// @apply text-white bg-indigo-600 border border-transparent rounded-md shadow-sm;
+	@apply text-white bg-yellow-400 border border-transparent rounded-md shadow-sm;
+}
+.btn-primary-colors:hover {
+	// @apply bg-indigo-700;
+	@apply bg-yellow-500;
+}
+.btn-primary-colors:focus {
+	// @apply outline-none ring-2 ring-offset-2 ring-indigo-600;
+	@apply outline-none ring-2 ring-offset-2 ring-yellow-400;
+}
+
+.btn-secondary-colors {
+	// @apply text-indigo-600 bg-white border border-gray-300 rounded-md shadow-sm;
+	@apply text-yellow-400 bg-white border border-gray-300 rounded-md shadow-sm;
+}
+.btn-secondary-colors:hover {
+	// @apply bg-gray-50;
+	@apply bg-gray-50;
+}
+.btn-secondary-colors:focus {
+	// @apply outline-none ring-2 ring-offset-2 ring-indigo-600;
+	@apply outline-none ring-2 ring-offset-2 ring-yellow-400;
+}
+
+.spin-button-none::-webkit-outer-spin-button,
+.spin-button-none::-webkit-inner-spin-button {
+	appearance: none;
+}
+
+@import "tailwindcss/utilities";

@@ -1,0 +1,8 @@
+<ng-container *ngIf="false; else processingTpl">
+	<ng-content></ng-content>
+</ng-container>
+  
+<ng-template class="bg-red-500" #processingTpl>
+	<i class="fa fa-spinner fa-spin"></i>
+	<span>{{ label }}</span>
+</ng-template>

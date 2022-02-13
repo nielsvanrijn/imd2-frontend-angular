@@ -1,0 +1,69 @@
+<header class="bg-white shadow-sm">
+	<div class="px-8 mx-auto max-w-7xl">
+		<div class="relative flex justify-between">
+			
+			<div class="flex pr-2">
+				<div class="flex items-center flex-shrink-0">
+					<svg class="w-auto h-12 p-2 mx-auto text-yellow-400 rounded-md fill-current hover:bg-gradient-to-br hover:text-yellow-500 " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+						<path d="M101.46 118a37.17 37.17 0 01.33-37.43c9.11-16 28-23.66 45.57-20.12.34-16.64 11.46-32 29-37.43a43.36 43.36 0 0138.82 6.08A41.63 41.63 0 01242.5 2c22.27-6.78 46.23 4.42 53.33 25.54a4.22 4.22 0 01.68 1.92A43.29 43.29 0 01335.65 23c17.53 5.43 28.67 20.79 29 37.43C382.2 57 401.09 64.6 410.2 80.6a37.88 37.88 0 01.33 37.43 42.7 42.7 0 0133.09 20.79c3.91 6.75 4.76 14 4.24 21.12H64.13c-.5-7.12.35-14.38 4.27-21.12 6.74-12.15 19.6-19.51 33.06-20.82z" opacity=".4"/>
+						<path d="M64 192h81.56l28 256h45.05l-21.56-256H315l-21.61 256h45l28-256H448l-43.91 292.73A32 32 0 01372.44 512H139.56a32 32 0 01-31.65-27.25z"/>
+					</svg>
+				</div>
+			</div>
+
+			<div class="flex-1 min-w-0 px-3">
+				<div class="flex items-center py-4 mx-0 max-w-none">
+					<div class="w-full">
+						<label for="search" class="sr-only">Search</label>
+						<div class="relative">
+							<div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+								<ng-icon class="text-xl text-gray-400" name="hero-search-solid"></ng-icon>
+							</div>
+							<input id="search" name="search" class="block w-full py-2 pl-10 pr-3 text-sm placeholder-gray-500 bg-white border border-gray-300 rounded-md focus:outline-none focus:text-gray-900 focus:placeholder-gray-400 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="Search" type="search">
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="flex items-center justify-end">
+				<div appClickOutside (clickOutside)="showUserMenu = false" class="relative ml-3">
+					<span app-avatar (click)="showUserMenu = !showUserMenu" *ngIf="userService.user$ | async as user" [name]="user.profile.name" [src]="user.profile.avatarUrl" class="grid overflow-hidden bg-gray-100 rounded-full w-9 h-9"></span>
+					<div *ngIf="showUserMenu" class="absolute right-0 z-10 w-48 py-1 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+						<p (click)="router.navigate(['account']); showUserMenu = false" class="block px-4 py-2 text-sm text-gray-700 hover:text-yellow-400 hover:cursor-pointer">Your Profile</p>
+						<a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>
+						<p (click)="auth.logout('nielsvanrijn24@gmail.com'); showUserMenu = false" class="block px-4 py-2 text-sm text-gray-700 hover:text-yellow-400 hover:cursor-pointer">Sign out</p>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</header>
+
+<!-- Narrow sidebar-->
+<nav aria-label="Sidebar" class="fixed flex-shrink-0 h-full overflow-y-auto bg-gray-800">
+	<div class="relative flex flex-col w-20 p-3 space-y-3">
+
+		<a routerLink="/account" routerLinkActive="text-white bg-gray-900" class="inline-flex transition items-center justify-center flex-shrink-0 text-gray-400 rounded-lg hover:bg-gray-700 h-14 w-14">
+			<span class="sr-only">Account</span>
+			<fa-icon></fa-icon>
+			<fa-icon class="text-xl" [icon]="['far', 'user-circle']"></fa-icon>
+		</a>
+
+		<a routerLink="/movies" routerLinkActive="text-white bg-gray-900" class="inline-flex transition items-center justify-center flex-shrink-0 text-gray-400 rounded-lg hover:bg-gray-700 h-14 w-14">
+			<span class="sr-only">Movies</span>
+			<fa-icon class="text-xl" [icon]="['far', 'film']"></fa-icon>
+		</a>
+
+		<a routerLink="/persons" routerLinkActive="text-white bg-gray-900" class="inline-flex transition items-center justify-center flex-shrink-0 text-gray-400 rounded-lg hover:bg-gray-700 h-14 w-14">
+			<span class="sr-only">People</span>
+			<fa-icon class="text-xl" [icon]="['far', 'transporter']"></fa-icon>
+		</a>
+
+		<a routerLink="/characters" routerLinkActive="text-white bg-gray-900" class="inline-flex transition items-center justify-center flex-shrink-0 text-gray-400 rounded-lg hover:bg-gray-700 h-14 w-14">
+			<span class="sr-only">Characters</span>
+			<fa-icon class="text-xl" [icon]="['far', 'hat-cowboy-side']"></fa-icon>
+		</a>
+
+	</div>
+</nav>

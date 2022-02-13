@@ -1,0 +1,4 @@
+<img *ngIf="src; else initials" [src]="src">
+<ng-template #initials>
+	<div class="m-auto text-lg font-bold text-center">{{ computedName }}</div>
+</ng-template>

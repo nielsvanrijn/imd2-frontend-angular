@@ -1,0 +1,43 @@
+<div appClickOutside (clickOutside)="open = false" class="relative inline-block text-left">
+	<div>
+		<button type="button" (click)="open = !open" class="inline-flex justify-center text-sm font-medium text-gray-700 group hover:text-gray-900" id="menu-button" aria-expanded="false" aria-haspopup="true">
+			{{ label }}
+			<ng-icon class="flex-shrink-0 ml-1 -mr-1 text-xl text-gray-400 group-hover:text-gray-500" name="hero-chevron-down-solid"></ng-icon>
+		</button>
+	</div>
+	<div [@dropdownHideShowAnimation] *ngIf="open" class="absolute left-0 mt-2 origin-top-left bg-white rounded-md shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none"  role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+		<div class="py-1" role="none">
+			<ng-container *ngIf="toggleStatesKey; else nostates">
+				<div
+					*ngFor="let option of options; index as optionIndex"
+					(click)="toggle(option)"
+					class="block px-4 py-2 text-sm whitespace-nowrap hover:bg-gray-100 hover:cursor-pointer"
+					[ngClass]="[option.currentState && selectedOption === option[labelKey].toLowerCase() ? 'font-medium text-primary-500' : 'text-gray-500']" 
+					role="menuitem" [tabindex]="optionIndex">
+					<fa-icon *ngIf="option.currentState && selectedOption === option[labelKey].toLowerCase() && iconsExist" size="lg" ngClass="text-primary-500" [icon]="[option.iconsStyle[currentStateIndex(option) - 1], option.icons[currentStateIndex(option) - 1]]"></fa-icon>
+					{{ option[labelKey] }}
+				</div>
+			</ng-container>
+			<ng-template #nostates>
+				<div
+					*ngFor="let option of options; index as optionIndex"
+					class="block px-4 py-2 text-sm whitespace-nowrap hover:bg-gray-100"
+					[ngClass]="[selectedOptions.includes(option[dataKey]) ? 'font-medium text-primary-500' : 'text-gray-500']" 
+					role="menuitem" [tabindex]="optionIndex">
+					<input
+						id="{{option[dataKey]}}"
+						name="{{option[labelKey]}}"
+						value="{{option[dataKey]}}"
+						type="checkbox"
+						(click)="toggle(option)"
+						[checked]="selectedOptions.includes(option[dataKey])"
+						class="w-4 h-4 border-gray-300 rounded hover:cursor-pointer text-primary-400 focus:ring-primary-400"
+					>
+					<label for="{{option[dataKey]}}" class="ml-3 text-sm text-gray-500 hover:cursor-pointer">
+						{{ option[labelKey] }}
+					</label>
+				</div>
+			</ng-template>
+		</div>
+	</div>
+</div>

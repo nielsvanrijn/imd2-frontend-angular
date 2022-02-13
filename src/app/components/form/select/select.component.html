@@ -1,0 +1,71 @@
+<div appClickOutside (clickOutside)="open = false">
+	<label *ngIf="label" id="listbox-label" class="block mb-1 text-sm font-medium text-gray-700">
+		{{ label }}
+	</label>
+	<div class="relative">
+		<button
+			type="button"
+			(click)="open = !open"
+			class="relative w-full py-2 pl-3 text-left bg-white border border-gray-300 rounded-md shadow-sm cursor-default pr-9 focus:outline-none focus:ring-1 focus:ring-primary-400 focus:border-primary-400"
+			[ngClass]="{'text-red-600 placeholder-red-300 border-red-300 focus:!ring-red-500 focus:!border-red-500 pr-10' : error, 'py-1': size === 'sm'}"
+			aria-haspopup="listbox"
+			attr.aria-expanded="{{open}}"
+			attr.aria-labelledby="listbox-label"
+			(keydown)="onKeyDown($event)"
+			#buttonEl
+		>
+			<div class="flex items-center">
+				<span *ngIf="selectedOptionsLabels().length > 0; else placeholderTemplate" class="block truncate">
+					{{ selectedOptionsLabels() }}
+				</span>
+				<ng-template #placeholderTemplate>
+					<span class="block truncate text-slate-400">
+						{{ placeholder }}
+					</span>
+				</ng-template>
+			</div>
+			<span class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+				<ng-icon class="text-xl text-gray-400" name="hero-selector-solid"></ng-icon>
+				<fa-icon *ngIf="error" size="lg" class="text-red-400" icon="exclamation-circle"></fa-icon>
+			</span>
+		</button>
+
+		<ul
+			[@singleSelectHideShowAnimation]
+			*ngIf="open"
+			class="absolute z-10 w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none"
+			[ngClass]="{'!pt-0' : filter}"
+			tabindex="-1"
+			role="listbox"
+			aria-labelledby="listbox-label"
+			#optionsEl
+		>
+			<div *ngIf="filter">
+				<input [(ngModel)]="filterQuery" type="search" name="search" autocomplete="none" class="block py-1 m-2 text-sm placeholder-gray-400 border border-gray-300 rounded-md appearance-none w-filter-input focus:outdivne-none focus:ring-yellow-400 focus:border-yellow-400" [placeholder]="'Filter ' + name">
+			</div>
+			<li
+				*ngFor="let option of sortedAndFilterdOptions; index as optionIndex"
+				class="relative py-2 pl-3 text-gray-900 cursor-default select-none pr-9"
+				[ngClass]="{'!text-white !bg-primary-400' : highlightedOptionIndex === optionIndex}"
+				role="option"
+				id="{{ _get(option, compareKey) }}"
+				attr.data-index="{{optionIndex}}"
+				(mouseover)="highlightedOptionIndex = optionIndex" (mouseout)="highlightedOptionIndex = -1"
+				(click)="toggleOption(option)"
+			>
+				<div class="flex items-center">
+					<img *ngIf="avatarKey" [src]="_get(option, avatarKey)" [alt]="_get(option, labelKey)" class="flex-shrink-0 object-cover w-6 h-6 rounded-full">
+					<span class="block ml-3 font-normal truncate" [ngClass]="{'!font-semibold' : isSelected(option)}">
+						{{ _get(option, labelKey) }}
+					</span>
+				</div>
+				<span *ngIf="isSelected(option)" class="absolute inset-y-0 right-0 flex items-center pr-4 text-primary-400" [ngClass]="{'!text-white' : highlightedOptionIndex === optionIndex}">
+					<fa-icon class="text-base" icon="check"></fa-icon>
+				</span>
+			</li>
+		</ul>
+		<ng-container *ngFor="let error of filterdErrors; index as errorIndex">
+			<p *ngIf="error" class="mt-1 text-xs text-red-400">{{ error }}</p>
+		</ng-container>
+	</div>
+</div>
