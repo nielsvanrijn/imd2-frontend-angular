@@ -15,11 +15,12 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Git HTTPS push deploy
-        uses: ilkka/git-https-push-action@v1.1.0
+      - name: Push to dokku
+        uses: dokku/github-action@v1.0.1
         with:
-          remoteUrl: '${{ secrets.PUSH_REMOTE }}/imd2-frontend-angular'
-          skipHooks: false
+          git_remote_url: '${{ secrets.SSH_URL }}/imd2-frontend-angular'
+          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          git_push_flags: '--force'
           
       - name: Notify
         uses: fjogeleit/http-request-action@master
