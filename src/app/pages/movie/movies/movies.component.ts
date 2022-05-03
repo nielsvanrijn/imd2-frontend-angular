@@ -18,19 +18,19 @@ export class MoviesComponent {
 	sortOptions = [
 		{
 			label: 'Name',
-			states: [null, 'asc', 'desc'],
+			states: [undefined, 'asc', 'desc'],
 			iconsStyle: ['far', 'far'],
 			icons: ['arrow-down-a-z', 'arrow-up-z-a'],
 		},
 		{
 			label: 'Year',
-			states: [null, 'asc', 'desc'],
+			states: [undefined, 'asc', 'desc'],
 			iconsStyle: ['far', 'far'],
 			icons: ['arrow-down-1-9', 'arrow-up-9-1'],
 		},
 		{
 			label: 'Length',
-			states: [null, 'asc', 'desc'],
+			states: [undefined, 'asc', 'desc'],
 			iconsStyle: ['far', 'far'],
 			icons: ['arrow-down-wide-short', 'arrow-up-short-wide'],
 		},
@@ -69,6 +69,7 @@ export class MoviesComponent {
 	}
 
 	callGetAllMoviesWithSortAndFilter() {
+		console.log(this.filterObject);
 		this.movieService.getAllMoviesWithSortAndFilter(this.filterObject).subscribe({
 			next: (result) => this.movies = plainToInstance(Movie, result),
 			error: (e) => console.log('callGetAllMovies error', e)
@@ -77,5 +78,13 @@ export class MoviesComponent {
 
 	logg(x: any) {
 		console.log(x);
+	}
+
+	get isFilterd() {
+		return Object.keys(this.filterObject.filter).length > 0;
+	}
+
+	get getActiveFilterLabels() {
+		return this.filterObject;
 	}
 }

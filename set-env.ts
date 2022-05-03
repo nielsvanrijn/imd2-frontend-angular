@@ -8,7 +8,6 @@ fs.readFile('./src/environments/environment.prod.ts', 'utf8' , (err: any, data: 
 	  console.error(err)
 	  return
 	}
-	console.log('BEFORE', data)
 	// `environment.ts` file structure
 	const envConfigFile = `export const environment = {
 	   production: '${process.env.PRODUCTION}',
@@ -29,7 +28,6 @@ fs.readFile('./src/environments/environment.prod.ts', 'utf8' , (err: any, data: 
 			  console.error(err)
 			  return
 			}
-			console.log('AFTER', data)
 		})
 	   }
 	});

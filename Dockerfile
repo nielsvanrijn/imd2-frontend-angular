@@ -18,7 +18,7 @@ ENV UPLOADUSERNAME ${UPLOADUSERNAME}
 ARG UPLOADAPIPASS ${UPLOADAPIPASS}
 ENV UPLOADAPIPASS ${UPLOADAPIPASS}
 
-RUN npm run build:prod --prod
+RUN npm run build:prod
 
 #stage 2
 FROM nginx:stable-alpine as production-stage
