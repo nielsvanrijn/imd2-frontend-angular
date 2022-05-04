@@ -23,7 +23,7 @@ RUN npm run build:prod
 
 #stage 2
 FROM nginx:stable-alpine as production-stage
-COPY --from=build-stage /app/nginx.conf.sigil /usr/app
+COPY --from=build-stage /app/nginx.conf.sigil ./
 COPY --from=build-stage /app/dist/frontend-angular /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
