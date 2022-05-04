@@ -1,6 +1,7 @@
 #stage 1
 FROM node:lts-alpine as build-stage
 WORKDIR /app
+ADD nginx.conf.sigil ./
 COPY . .
 RUN npm config set "@fortawesome:registry" https://npm.fontawesome.com/
 ARG FONTAWESOME_AUTH_TOKEN
@@ -22,6 +23,7 @@ RUN npm run build:prod
 
 #stage 2
 FROM nginx:stable-alpine as production-stage
+COPY --from=builder /app/nginx.conf.sigil /usr/app
 COPY --from=build-stage /app/dist/frontend-angular /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
