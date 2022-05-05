@@ -17,15 +17,8 @@ server {
     return 301 https://$host:{{ $.PROXY_SSL_PORT }}$request_uri;
   }
 {{ else }}
-  location ~ \.css {
-    add_header  Content-Type    text/css;
-  }
-  location ~ \.js {
-    add_header  Content-Type    application/x-javascript;
-  }
   location    / {
-    
-    try_files $uri $uri/ /index.html;
+
     gzip on;
     gzip_min_length  1100;
     gzip_buffers  4 32k;
@@ -84,14 +77,9 @@ server {
 
   keepalive_timeout   70;
   {{ if and (eq $.SPDY_SUPPORTED "true") (ne $.HTTP2_SUPPORTED "true") }}add_header          Alternate-Protocol  {{ $.PROXY_SSL_PORT }}:npn-spdy/2;{{ end }}
-  location ~ \.css {
-    add_header  Content-Type    text/css;
-  }
-  location ~ \.js {
-    add_header  Content-Type    application/x-javascript;
-  }
+
   location    / {
-    try_files $uri $uri/ /index.html;
+
     gzip on;
     gzip_min_length  1100;
     gzip_buffers  4 32k;
