@@ -14,7 +14,7 @@ import { MovieService } from 'src/app/services/movie.service';
 })
 export class MoviesComponent {
 	movies: Movie[] = [];
-	filterObject: {sort?: {on: string, direction: string}, filter: {genreIds?: number[], castPersonIds?: number[], directorPersonIds?: number[], writerPersonIds?: number[]}} = {filter: {}};
+	filterObject: {sort?: {on: string, direction: string}, filter: {genres?: Genre[], castPersons?: Person[], directorPersons?: Person[], writerPersons?: Person[]}} = {filter: {}};
 	sortOptions = [
 		{
 			label: 'Name',
@@ -35,6 +35,7 @@ export class MoviesComponent {
 			icons: ['arrow-down-wide-short', 'arrow-up-short-wide'],
 		},
 	];
+	activeFilterLabels: String[] = [];
 	readonly genres$ = new BehaviorSubject<Genre[] | null>(null);
 	readonly persons$ = new BehaviorSubject<Person[] | null>(null);
 
@@ -69,15 +70,18 @@ export class MoviesComponent {
 	}
 
 	callGetAllMoviesWithSortAndFilter() {
-		console.log(this.filterObject);
 		this.movieService.getAllMoviesWithSortAndFilter(this.filterObject).subscribe({
 			next: (result) => this.movies = plainToInstance(Movie, result),
 			error: (e) => console.log('callGetAllMovies error', e)
 		});
 	}
 
+	updateActiveFilterLabels(activeIds: number[], options: any[], key: string) {
+		this.activeFilterLabels = options.filter((x) => activeIds.includes(x.id)).map((y) => y[key]);
+	}
+
 	logg(x: any) {
-		console.log(x);
+		console.log('LOGGER', x);
 	}
 
 	get isFilterd() {
@@ -85,6 +89,6 @@ export class MoviesComponent {
 	}
 
 	get getActiveFilterLabels() {
-		return this.filterObject;
+		return this.filterObject.filter;
 	}
 }

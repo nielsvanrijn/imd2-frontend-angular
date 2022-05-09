@@ -45,7 +45,7 @@ export class MovieService {
 		return this.http.get<Movie[]>(`${environment.apiUrl}/movies`);
 	}
 
-	getAllMoviesWithSortAndFilter(data: {sort?: {on: string, direction: string}, filter: {genreIds?: number[], castPersonIds?: number[], directorPersonIds?: number[], writerPersonIds?: number[]}}) {
+	getAllMoviesWithSortAndFilter(data: {sort?: {on: string, direction: string}, filter: {genres?: Genre[], castPersons?: Person[], directorPersons?: Person[], writerPersons?: Person[]}}) {
 		return this.http.post<Movie[]>(`${environment.apiUrl}/movies`, data);
 	}
 

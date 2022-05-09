@@ -52,7 +52,7 @@ export class MovieComponent {
 	}
 	
 	callCreateMovie(movie: Movie) {
-		movie.cast.forEach((c) => {if(!c.characterId) c.characterId = c.character.id});
+		if(movie.cast) movie.cast.forEach((c) => {if(!c.characterId) c.characterId = c.character.id});
 
 		this.movieService.createMovie(movie).subscribe({
 			next: () => this.router.navigate(['movies']),

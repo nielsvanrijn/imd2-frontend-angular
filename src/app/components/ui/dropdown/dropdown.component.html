@@ -22,18 +22,18 @@
 				<div
 					*ngFor="let option of options; index as optionIndex"
 					class="block px-4 py-2 text-sm whitespace-nowrap hover:bg-gray-100"
-					[ngClass]="[selectedOptions.includes(option[dataKey]) ? 'font-medium text-primary-500' : 'text-gray-500']" 
+					[ngClass]="[selectedOptions.includes(this.dataKey ? option[this.dataKey] : option) ? 'font-medium text-primary-500' : 'text-gray-500']" 
 					role="menuitem" [tabindex]="optionIndex">
 					<input
-						id="{{option[dataKey]}}"
+						id="{{this.dataKey ? option[this.dataKey] : option}}"
 						name="{{option[labelKey]}}"
-						value="{{option[dataKey]}}"
+						value="{{this.dataKey ? option[this.dataKey] : option}}"
 						type="checkbox"
 						(click)="toggle(option)"
-						[checked]="selectedOptions.includes(option[dataKey])"
+						[checked]="selectedOptions.includes(this.dataKey ? option[this.dataKey] : option)"
 						class="w-4 h-4 border-gray-300 rounded hover:cursor-pointer text-primary-400 focus:ring-primary-400"
 					>
-					<label for="{{option[dataKey]}}" class="ml-3 text-sm text-gray-500 hover:cursor-pointer">
+					<label for="{{this.dataKey ? option[this.dataKey] : option}}" class="ml-3 text-sm text-gray-500 hover:cursor-pointer">
 						{{ option[labelKey] }}
 					</label>
 				</div>

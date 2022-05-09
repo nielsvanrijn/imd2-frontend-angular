@@ -13,7 +13,7 @@ export class DropdownComponent implements OnInit {
 	@Input() label: string = 'select';
 	@Input() options: Array<any> = [];
 	@Input() labelKey: string = 'label';
-	@Input() dataKey: string = 'id';
+	@Input() dataKey: string;
 	@Input() toggleStatesKey: string;
 	@Input() single: boolean = true;
 	@Output() toggleEvent = new EventEmitter<any>();
@@ -50,8 +50,9 @@ export class DropdownComponent implements OnInit {
 			}
 			this.toggleEvent.emit({option: this.selectedOption, state: this.selectedState});
 		} else if(!this.single) {
-			if (this.selectedOptions.includes(option[this.dataKey])) this.selectedOptions = this.selectedOptions.filter((selectedOption) => selectedOption !== option[this.dataKey]);
-			else this.selectedOptions.push(option[this.dataKey]);
+			if (this.selectedOptions.includes(this.dataKey ? option[this.dataKey] : option)) this.selectedOptions = this.selectedOptions.filter((selectedOption) => selectedOption !== this.dataKey ? option[this.dataKey] : option);
+			else this.selectedOptions.push(this.dataKey ? option[this.dataKey] : option);
+			console.log(this.selectedOptions);
 			this.toggleEvent.emit(this.selectedOptions);
 		} else {
 			// single functionality

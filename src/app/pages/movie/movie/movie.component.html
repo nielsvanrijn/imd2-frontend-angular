@@ -11,7 +11,7 @@
 					</p>
 				</div>
 				<div class="flex-shrink-0 px-6 py-5">
-					<button (click)="id ? callUpdateMovie(movie) : callCreateMovie(movie)" class="mr-4 " app-button
+					<button (click)="id ? callUpdateMovie(movie) : callCreateMovie(movie)" class="mr-4" app-button
 						[label]="id ? 'Update' : 'Save'" iconStyle="solid" icon="fa-save" iconPosition="right"
 						design="primary" size="small" color="primary"></button>
 					<button (click)="router.navigate(['movies'])" app-button label="Back" iconStyle="solid"
