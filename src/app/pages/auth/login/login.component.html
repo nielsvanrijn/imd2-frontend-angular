@@ -14,14 +14,14 @@
 			</a>
 		</p>
 	</div>
-  
+
 	<div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
 		<div class="px-4 py-8 bg-white shadow sm:rounded-lg sm:px-10">
 			<form class="space-y-6" method="POST">
 
-				<div app-input label="Email address" [(inputModel)]="email" [type]="'email'" [required]="true" [errors]="auth.loginErrors.email"></div>
+				<div app-input label="Email address" [(inputModel)]="email" name="email" [type]="'email'" [required]="true" [errors]="auth.loginErrors.email"></div>
 
-				<div app-input label="Password" [(inputModel)]="password" [type]="'password'" [required]="true" [errors]="auth.loginErrors.password"></div>
+				<div app-input label="Password" [(inputModel)]="password" name="password" [type]="'password'" [required]="true" [errors]="auth.loginErrors.password"></div>
 
 				<div class="flex items-center justify-between">
 					<div class="text-sm">
@@ -34,6 +34,7 @@
 				<div>
 					<!-- <button (click)="callLogin()" class="w-full" app-button label="Sign in" iconStyle="solid" icon="fa-plus" iconPosition="right" design="primary" size="medium" color="primary"></button> -->
 					<button (click)="callLogin()" class="w-full" app-button label="Sign in" design="primary" size="medium" color="primary"></button>
+          <button (click)="loginWebauthn()" class="w-full mt-4 animate-heartbeat" app-button label="Sign in using passkey" design="primary" size="medium" color="warning"></button>
 				</div>
 			</form>
 		</div>

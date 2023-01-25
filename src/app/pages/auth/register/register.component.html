@@ -11,21 +11,44 @@
 			</a>
 		</p>
 	</div>
-  
+
 	<div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-		<div class="px-4 py-8 bg-white shadow sm:rounded-lg sm:px-10">
-			<form class="space-y-6" method="POST">
+    <nav class="flex rounded-t-lg" aria-label="Tabs">
+      <div (click)="webauthnTab = !webauthnTab" class="relative flex-1 min-w-0 px-4 py-4 overflow-hidden text-sm font-medium text-center text-gray-500 rounded-t-lg group" [class]="webauthnTab ? 'bg-gray-50 hover:text-primary-500 hover:cursor-pointer' : 'bg-white'">
+        <span>Default</span>
+      </div>
 
-				<div app-input label="Name" [(inputModel)]="name" name="name" [required]="true" [errors]="auth.registerErrors.name"></div>
+      <div (click)="webauthnTab = !webauthnTab" class="relative flex-1 min-w-0 px-4 py-4 overflow-hidden text-sm font-medium text-center text-gray-500 rounded-t-lg group" [class]="webauthnTab ? 'bg-white' : 'bg-gray-50 hover:text-primary-500 hover:cursor-pointer'">
+        <span>Passkey</span>
+      </div>
+    </nav>
+		<div class="px-4 py-8 bg-white shadow sm:rounded-b-lg sm:px-10">
+      <form class="space-y-6" *ngIf="webauthnTab; else defaultTab">
 
-				<div app-input label="Email address" [(inputModel)]="email" [type]="'email'" [required]="true" [errors]="auth.registerErrors.email"></div>
+        <p class="font-semibold text-gray-500 sm:text-sm">No password required! Learn more <a class="text-yellow-500" href="https://www.passkeys.io/" target="_blank" rel="noopener noreferrer">here</a></p>
 
-				<div app-input label="Password" [(inputModel)]="password" [type]="'password'" [required]="true" [errors]="auth.registerErrors.password"></div>
+        <div app-input label="Name" [(inputModel)]="name" name="name" [required]="true" [errors]="auth.registerErrors.name"></div>
 
-				<div>
-					<button (click)="callRegister()" class="w-full" app-button label="Sign up" design="primary" size="medium" color="primary"></button>
-				</div>
-			</form>
+        <div app-input label="Email address" [(inputModel)]="email" name="email" [type]="'email'" [required]="true" [errors]="auth.registerErrors.email"></div>
+
+        <div>
+          <button (click)="registerWebauthn()" class="w-full" app-button label="Sign up" design="primary" size="medium" color="primary"></button>
+        </div>
+      </form>
+      <ng-template #defaultTab>
+        <form #defaultTab class="space-y-6" method="POST">
+
+          <div app-input label="Name" [(inputModel)]="name" name="name" [required]="true" [errors]="auth.registerErrors.name"></div>
+
+          <div app-input label="Email address" [(inputModel)]="email" [type]="'email'" [required]="true" [errors]="auth.registerErrors.email"></div>
+
+          <div app-input label="Password" [(inputModel)]="password" [type]="'password'" [required]="true" [errors]="auth.registerErrors.password"></div>
+
+          <div>
+            <button (click)="callRegister()" class="w-full" app-button label="Sign up" design="primary" size="medium" color="primary"></button>
+          </div>
+        </form>
+      </ng-template>
 		</div>
 	</div>
 </div>

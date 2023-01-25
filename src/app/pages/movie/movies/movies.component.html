@@ -1,11 +1,11 @@
 <div class="py-12 bg-gray-100 h-w-content">
 	<div class="flex mx-auto max-w-7xl">
 		<div class="flex-1 bg-white rounded-lg shadow">
-		
+
 			<!-- Filters -->
 			<section aria-labelledby="filter-heading">
 				<h2 id="filter-heading" class="sr-only">Filters</h2>
-			
+
 				<div class="relative py-4 bg-white border-b border-gray-200 rounded-t-lg">
 					<div class="flex items-center justify-between px-8 mx-auto max-w-7xl">
 
@@ -22,7 +22,7 @@
 
 								<button type="button" class="inline-flex justify-center text-sm font-medium text-gray-700 group hover:text-gray-900" aria-expanded="false">
 									<span>Genre</span>
-				
+
 									<span class="ml-1.5 rounded py-0.5 px-1.5 bg-gray-200 text-xs font-semibold text-gray-700 tabular-nums">1</span>
 									<ng-icon class="flex-shrink-0 ml-1 -mr-1 text-xl text-gray-400 group-hover:text-gray-500" name="hero-chevron-down-solid"></ng-icon>
 								</button>
@@ -35,14 +35,14 @@
 											All New Arrivals
 											</label>
 										</div>
-					
+
 										<div class="flex items-center">
 											<input id="filter-category-1" name="category[]" value="tees" type="checkbox" class="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
 											<label for="filter-category-1" class="pr-6 ml-3 text-sm font-medium text-gray-900 whitespace-nowrap">
 											Tees
 											</label>
 										</div>
-					
+
 										<div class="flex items-center">
 											<input id="filter-category-2" name="category[]" value="objects" type="checkbox" checked class="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
 											<label for="filter-category-2" class="pr-6 ml-3 text-sm font-medium text-gray-900 whitespace-nowrap">
@@ -57,16 +57,18 @@
 								<app-dropdown
 									label="Genres"
 									labelKey="name"
+                  dataKey="id"
 									[options]="genres"
 									(toggleEvent)="filterObject.filter.genres = $event; callGetAllMoviesWithSortAndFilter()"
 									[single]="false">
 								</app-dropdown>
 							</div>
-		
+
 							<div class="px-4">
 								<app-dropdown
 									label="Actors"
 									labelKey="fullName"
+                  dataKey="id"
 									[options]="persons"
 									(toggleEvent)="filterObject.filter.castPersons = $event; callGetAllMoviesWithSortAndFilter()"
 									[single]="false">
@@ -77,6 +79,7 @@
 								<app-dropdown
 									label="Writers"
 									labelKey="fullName"
+                  dataKey="id"
 									[options]="persons"
 									(toggleEvent)="filterObject.filter.directorPersons = $event; callGetAllMoviesWithSortAndFilter()"
 									[single]="false">
@@ -87,12 +90,13 @@
 								<app-dropdown
 									label="Directors"
 									labelKey="fullName"
+                  dataKey="id"
 									[options]="persons"
 									(toggleEvent)="filterObject.filter.writerPersons = $event; callGetAllMoviesWithSortAndFilter()"
 									[single]="false">
 								</app-dropdown>
 							</div>
-							
+
 							<div>
 								<button (click)="router.navigate(['movie'])" type="button" class="inline-flex items-center px-3 py-2 mx-2 text-sm font-medium leading-4 btn-secondary-colors">
 									<i class="h-3 mr-2 fa-solid fa-plus"></i>
@@ -102,7 +106,7 @@
 						</div>
 					</div>
 				</div>
-			
+
 				<!-- Active filters -->
 				<div class="bg-gray-100 rounded-b-lg">
 					<div *ngIf="isFilterd" class="flex items-center px-8 py-3 mx-auto max-w-7xl">
@@ -114,7 +118,26 @@
 							<div *ngFor="let filter of $any(activeFilter.value);">
 								<div class="flex flex-wrap items-center">
 									<span class="m-1 inline-flex rounded-full border border-gray-200 items-center py-1.5 pl-3 pr-2 text-sm font-medium bg-white text-gray-900">
-										<span>{{ filter.name ? filter.name : filter.fullName ? filter.fullName : 'null' }}</span>
+                    <ng-container *ngIf="activeFilter.key === 'genres'">
+                      <span *ngIf="genres$ | async as genres">
+                        {{ findById(genres, filter).name }}
+                      </span>
+                    </ng-container>
+                    <ng-container *ngIf="activeFilter.key === 'castPersons'">
+                      <span *ngIf="persons$ | async as persons">
+                        {{ findById(persons, filter).fullName }}
+                      </span>
+                    </ng-container>
+                    <ng-container *ngIf="activeFilter.key === 'directorPersons'">
+                      <span *ngIf="persons$ | async as persons">
+                        {{ findById(persons, filter).fullName }}
+                      </span>
+                    </ng-container>
+                    <ng-container *ngIf="activeFilter.key === 'writerPersons'">
+                      <span *ngIf="persons$ | async as persons">
+                        {{ findById(persons, filter).fullName }}
+                      </span>
+                    </ng-container>
 										<button (click)="router.navigate(['movie'])" type="button" class="inline-flex flex-shrink-0 w-4 h-4 p-1 ml-1 text-gray-400 rounded-full hover:bg-gray-200 hover:text-gray-500">
 											<svg class="w-2 h-2" stroke="currentColor" fill="none" viewBox="0 0 8 8">
 												<path stroke-linecap="round" stroke-width="1.5" d="M1 1l6 6m0-6L1 7" />
@@ -124,11 +147,11 @@
 								</div>
 							</div>
 						</ng-container>
-						
+
 					</div>
 				</div>
 			</section>
-		</div>			
+		</div>
 	</div>
 	<div class="grid grid-cols-8 mx-auto mt-4 max-w-7xl gap-x-8 gap-y-4">
 		<div *ngFor="let movie of movies; index as optionIndex" class="flex flex-col col-span-1 transition rounded-lg ring-offset-gray-100 ring-offset-2 hover:ring-2 hover:ring-primary-500">

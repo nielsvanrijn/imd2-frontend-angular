@@ -16,7 +16,7 @@ export class ButtonComponent {
 	@Input() iconStyle: 'solid' | 'regular' | 'light' | 'thin' | 'duotone' = 'regular';
 	@Input() iconPosition: 'left' | 'right' = 'left';
 	@Output() EE = new EventEmitter<MouseEvent>();
-    
+
 	constructor() { }
 
 	public get class(): string {

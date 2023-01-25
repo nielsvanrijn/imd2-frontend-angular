@@ -5,14 +5,14 @@
 			<ng-icon class="flex-shrink-0 ml-1 -mr-1 text-xl text-gray-400 group-hover:text-gray-500" name="hero-chevron-down-solid"></ng-icon>
 		</button>
 	</div>
-	<div [@dropdownHideShowAnimation] *ngIf="open" class="absolute left-0 mt-2 origin-top-left bg-white rounded-md shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none"  role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+	<div [@dropdownHideShowAnimation] *ngIf="open" class="absolute left-0 mt-2 overflow-x-hidden overflow-y-scroll max-h-[80vh] scrollbar-hide origin-top-left bg-white rounded-md shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none"  role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
 		<div class="py-1" role="none">
 			<ng-container *ngIf="toggleStatesKey; else nostates">
 				<div
 					*ngFor="let option of options; index as optionIndex"
 					(click)="toggle(option)"
 					class="block px-4 py-2 text-sm whitespace-nowrap hover:bg-gray-100 hover:cursor-pointer"
-					[ngClass]="[option.currentState && selectedOption === option[labelKey].toLowerCase() ? 'font-medium text-primary-500' : 'text-gray-500']" 
+					[ngClass]="[option.currentState && selectedOption === option[labelKey].toLowerCase() ? 'font-medium text-primary-500' : 'text-gray-500']"
 					role="menuitem" [tabindex]="optionIndex">
 					<fa-icon *ngIf="option.currentState && selectedOption === option[labelKey].toLowerCase() && iconsExist" size="lg" ngClass="text-primary-500" [icon]="[option.iconsStyle[currentStateIndex(option) - 1], option.icons[currentStateIndex(option) - 1]]"></fa-icon>
 					{{ option[labelKey] }}
@@ -21,8 +21,8 @@
 			<ng-template #nostates>
 				<div
 					*ngFor="let option of options; index as optionIndex"
-					class="block px-4 py-2 text-sm whitespace-nowrap hover:bg-gray-100"
-					[ngClass]="[selectedOptions.includes(this.dataKey ? option[this.dataKey] : option) ? 'font-medium text-primary-500' : 'text-gray-500']" 
+					class="block px-4 text-sm whitespace-nowrap hover:bg-gray-100"
+					[ngClass]="[selectedOptions.includes(this.dataKey ? option[this.dataKey] : option) ? 'font-medium text-primary-500' : 'text-gray-500']"
 					role="menuitem" [tabindex]="optionIndex">
 					<input
 						id="{{this.dataKey ? option[this.dataKey] : option}}"
@@ -33,7 +33,7 @@
 						[checked]="selectedOptions.includes(this.dataKey ? option[this.dataKey] : option)"
 						class="w-4 h-4 border-gray-300 rounded hover:cursor-pointer text-primary-400 focus:ring-primary-400"
 					>
-					<label for="{{this.dataKey ? option[this.dataKey] : option}}" class="ml-3 text-sm text-gray-500 hover:cursor-pointer">
+					<label for="{{this.dataKey ? option[this.dataKey] : option}}" class="inline-block py-2 ml-3 text-sm text-gray-500 hover:cursor-pointer">
 						{{ option[labelKey] }}
 					</label>
 				</div>

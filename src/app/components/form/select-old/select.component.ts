@@ -28,13 +28,13 @@ export class SelectOldComponent implements OnInit {
 	public selectedOptions: Array<string | number> = [];
 	public selectedOption: string | number = NaN;
 
-	@ViewChild('buttonEl', { read: ElementRef, static: true }) 
+	@ViewChild('buttonEl', { read: ElementRef, static: true })
 	private buttonEl : ElementRef;
-	@ViewChild('optionsEl') 
+	@ViewChild('optionsEl')
 	private optionsEl : ElementRef;
 
 	constructor() { }
-	
+
 	ngOnInit(): void {
 		// if (this.name === 'cast') {
 			// console.log(this.name);

@@ -29,6 +29,8 @@
     "@fortawesome/pro-solid-svg-icons": "^6.1.1",
     "@ng-icons/core": "^13.2.1",
     "@ng-icons/heroicons": "^13.2.1",
+    "@simplewebauthn/browser": "^7.0.0",
+    "@simplewebauthn/typescript-types": "^7.0.0",
     "bcryptjs": "^2.4.3",
     "class-transformer": "^0.5.1",
     "crypto-js": "^4.1.1",

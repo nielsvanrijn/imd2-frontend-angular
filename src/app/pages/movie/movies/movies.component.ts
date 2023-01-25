@@ -14,7 +14,7 @@ import { MovieService } from 'src/app/services/movie.service';
 })
 export class MoviesComponent {
 	movies: Movie[] = [];
-	filterObject: {sort?: {on: string, direction: string}, filter: {genres?: Genre[], castPersons?: Person[], directorPersons?: Person[], writerPersons?: Person[]}} = {filter: {}};
+	filterObject: {sort?: {on: string, direction: string}, filter: {genres?: number[], castPersons?: number[], directorPersons?: number[], writerPersons?: number[]}} = {filter: {}};
 	sortOptions = [
 		{
 			label: 'Name',
@@ -80,9 +80,9 @@ export class MoviesComponent {
 		this.activeFilterLabels = options.filter((x) => activeIds.includes(x.id)).map((y) => y[key]);
 	}
 
-	logg(x: any) {
-		console.log('LOGGER', x);
-	}
+  findById(array: any[], id: number) {
+    return array.find((x) => x.id === id);
+  }
 
 	get isFilterd() {
 		return Object.keys(this.filterObject.filter).length > 0;

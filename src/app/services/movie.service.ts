@@ -26,14 +26,14 @@ export class MovieService {
 
 		const formData = new FormData();
 		formData.append('file', file);
-		
+
 		return this.http.post(environment.uploadApiUrl, formData, { headers: { Authorization: 'Basic ' + btoa(`${hashedUsername}:${hashedPassword}`)}});
 	}
 
 	async deleteMoviePoster(fileName: string) {
 		const hashedUsername = await hash(environment.uploadUserName, 12);
 		const hashedPassword = await hash(environment.uploadApiPass, 12);
-		
+
 		return this.http.delete(`${environment.uploadApiUrl}${fileName}`, { headers: { Authorization: 'Basic ' + btoa(`${hashedUsername}:${hashedPassword}`)}});
 	}
 
@@ -45,7 +45,7 @@ export class MovieService {
 		return this.http.get<Movie[]>(`${environment.apiUrl}/movies`);
 	}
 
-	getAllMoviesWithSortAndFilter(data: {sort?: {on: string, direction: string}, filter: {genres?: Genre[], castPersons?: Person[], directorPersons?: Person[], writerPersons?: Person[]}}) {
+	getAllMoviesWithSortAndFilter(data: {sort?: {on: string, direction: string}, filter: {genres?: number[], castPersons?: number[], directorPersons?: number[], writerPersons?: number[]}}) {
 		return this.http.post<Movie[]>(`${environment.apiUrl}/movies`, data);
 	}
 

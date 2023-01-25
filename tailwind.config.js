@@ -8,12 +8,13 @@ module.exports = {
 	theme: {
 		extend: {
 			colors: {
-                primary: colors.yellow,
-                info: colors.blue,
-                warning: colors.amber,
-                success: colors.green,
-                danger: colors.red,
-            },
+        primary: colors.yellow,
+        secondary: colors.amber,
+        info: colors.blue,
+        warning: colors.amber,
+        success: colors.green,
+        danger: colors.red,
+      },
 			objectPosition: {
 				'avatar': 'center -0.5rem',
 			},
@@ -23,6 +24,15 @@ module.exports = {
 			aspectRatio: {
 				'poster': '2 / 3',
 			},
+      keyframes: {
+        heartbeat: {
+          '0%, 28%, 70%': { transform: 'scale(1)' },
+          '14%, 42%': { transform: 'scale(1.2)' },
+        }
+      },
+      animation: {
+        heartbeat: 'heartbeat calc(1s * 1.3) ease-in-out',
+      }
 		},
 	},
 	variants: {

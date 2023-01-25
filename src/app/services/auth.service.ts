@@ -6,16 +6,13 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
-import { User } from '../models/User';
-import { Tokens } from '../models/Tokens';
-
 
 @Injectable({
 	providedIn: 'root'
 })
 export class AuthService {
 	public loginErrors: any = {};
-	public registerErrors: any = {};
+	public registerErrors: { [key: string]: { location: string, msg: string, param: string }[] } = {};
 
 	constructor(
 		public router: Router,
@@ -33,7 +30,7 @@ export class AuthService {
 			this.storeToken(result.accessToken);
 		}).catch((err) => {
 			this.loginErrors = {};
-			this.loginErrors = err.error.reduce((pV: any, cV: any) => { 
+			this.loginErrors = err.error.reduce((pV: any, cV: any) => {
 				return {
 					...pV,
 					[cV.param]: err.error.filter((e: any) => e.param === cV.param).map((er: any) => er.param === cV.param ? er.msg : null),
@@ -42,6 +39,44 @@ export class AuthService {
 			console.log('login errors', this.loginErrors);
 		});
 	}
+
+  async initializeLoginWebauthn(email: string) {
+    const data = {
+      email
+    };
+    return this.http.post(`${environment.apiUrl}/webauthn/login_initialize`, data, { withCredentials: true }).toPromise().then((result: any) => {
+      console.log(result);
+      return result;
+    }).catch((err) => {
+      this.loginErrors = {};
+      this.loginErrors = err.error.reduce((pV: any, cV: any) => {
+        return {
+          ...pV,
+          [cV.param]: err.error.filter((e: any) => e.param === cV.param)
+        };
+      }, this.loginErrors);
+    });
+  }
+
+  async finalizeLoginWebauthn(email: string, attestation: object) {
+    const data = {
+      email,
+      attestation
+    };
+    return this.http.post(`${environment.apiUrl}/webauthn/login_finalize`, data, { withCredentials: true }).toPromise().then((result: any) => {
+      console.log(result);
+      this.router.navigate(['account']);
+      this.storeToken(result.accessToken);
+    }).catch((err) => {
+      this.loginErrors = {};
+      this.loginErrors = err.error.reduce((pV: any, cV: any) => {
+        return {
+          ...pV,
+          [cV.param]: err.error.filter((e: any) => e.param === cV.param)
+        };
+      }, this.loginErrors);
+    });
+  }
 
 	logout(email: string): void {
 		const data = {
@@ -57,7 +92,7 @@ export class AuthService {
 
 	register(name: string, email: string, password: string): void {
 		const data = {
-			name, 
+			name,
 			email,
 			password
 		};
@@ -67,7 +102,7 @@ export class AuthService {
 		}).catch((err) => {
 			console.log(err);
 			this.registerErrors = {};
-			this.registerErrors = err.error.reduce((pV: any, cV: any) => { 
+			this.registerErrors = err.error.reduce((pV: any, cV: any) => {
 				return {
 					...pV,
 					[cV.param]: err.error.filter((e: any) => e.param === cV.param).map((er: any) => er.param === cV.param ? er.msg : null),
@@ -76,6 +111,45 @@ export class AuthService {
 			console.log('register errors', this.registerErrors);
 		});
 	}
+
+  async initializeRegisterWebauthn(name: string, email: string) {
+    const data = {
+      name,
+      email
+    };
+    return this.http.post(`${environment.apiUrl}/webauthn/register_initialize`, data, { withCredentials: true }).toPromise().then((result: any) => {
+      console.log('initializeRegisterWebauthn', result);
+      return result;
+    }).catch((err) => {
+      this.registerErrors = {};
+      this.registerErrors = err.error.reduce((pV: any, cV: any) => {
+        return {
+          ...pV,
+          [cV.param]: err.error.filter((e: any) => e.param === cV.param)
+        };
+      }, this.registerErrors);
+    });
+  }
+
+  async finalizeRegisterWebauthn(email: string, attestation: object) {
+    const data = {
+      email,
+      attestation
+    };
+    return this.http.post(`${environment.apiUrl}/webauthn/register_finalize`, data, { withCredentials: true }).toPromise().then((result: any) => {
+      console.log('finalizeRegisterWebauthn', result);
+      this.router.navigate(['']);
+      return result;
+    }).catch((err) => {
+      this.registerErrors = {};
+      this.registerErrors = err.error.reduce((pV: any, cV: any) => {
+        return {
+          ...pV,
+          [cV.param]: err.error.filter((e: any) => e.param === cV.param)
+        };
+      }, this.registerErrors);
+    });
+  }
 
 	isLoggedIn() {
 		return !!this.getJwtToken();
@@ -87,7 +161,7 @@ export class AuthService {
 				this.storeToken(result.accessToken);
 			}));
 	}
-	
+
 	getJwtToken() {
 		return localStorage.getItem('ac');
 	}

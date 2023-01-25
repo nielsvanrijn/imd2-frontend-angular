@@ -50,9 +50,8 @@ export class DropdownComponent implements OnInit {
 			}
 			this.toggleEvent.emit({option: this.selectedOption, state: this.selectedState});
 		} else if(!this.single) {
-			if (this.selectedOptions.includes(this.dataKey ? option[this.dataKey] : option)) this.selectedOptions = this.selectedOptions.filter((selectedOption) => selectedOption !== this.dataKey ? option[this.dataKey] : option);
+			if (this.selectedOptions.includes(this.dataKey ? option[this.dataKey] : option)) this.selectedOptions = this.selectedOptions.filter((selectedOption) => selectedOption !== (this.dataKey ? option[this.dataKey] : option));
 			else this.selectedOptions.push(this.dataKey ? option[this.dataKey] : option);
-			console.log(this.selectedOptions);
 			this.toggleEvent.emit(this.selectedOptions);
 		} else {
 			// single functionality

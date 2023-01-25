@@ -22,7 +22,7 @@ export class MovieComponent {
 	id: number | null = null;
 	errorResponse: Array<{location: string; msg: string; param: string}> = [];
 	readonly moviePosterFileTypes = ['image/heif', 'image/jpeg', 'image/png'];
-	
+
 	readonly movie$ = new BehaviorSubject<Movie | null>(null);
 	readonly genres$ = new BehaviorSubject<Genre[] | null>(null);
 	readonly persons$ = new BehaviorSubject<Person[] | null>(null);
@@ -50,7 +50,7 @@ export class MovieComponent {
 		this.callgetAllPersons();
 		this.callGetAllCharacters();
 	}
-	
+
 	callCreateMovie(movie: Movie) {
 		if(movie.cast) movie.cast.forEach((c) => {if(!c.characterId) c.characterId = c.character.id});
 
@@ -87,13 +87,13 @@ export class MovieComponent {
 
 	callDeleteMoviePoster() {
 		const filenName = this.movie$.getValue()!.posterUrls[this.movie$.getValue()!.posterUrlsIndex].substring(29);
-		this.movieService.deleteMoviePoster(filenName).then((sub) => sub.subscribe({		
+		this.movieService.deleteMoviePoster(filenName).then((sub) => sub.subscribe({
 			next: () => {
 				this.resetMoviePosterIndex();
 				const currentValue = this.movie$.getValue()!;
 				currentValue.posterUrls
 				currentValue.posterUrls.splice(currentValue.posterUrls.findIndex((url) => url.includes(filenName)), 1)
-				this.callUpdateMovie(this.movie$.getValue()!, false);	
+				this.callUpdateMovie(this.movie$.getValue()!, false);
 			}
 		})).catch((e) => {
 			console.log(e)
@@ -151,9 +151,5 @@ export class MovieComponent {
 		const updatedMovie = this.movie$.getValue()!;
 		updatedMovie.posterUrlsIndex = 0;
 		this.movie$.next(updatedMovie);
-	}
-
-	logg(x: any) {
-		console.log(x);
 	}
 }
